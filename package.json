@@ -1,0 +1,23 @@
+{
+  "name": "boolbeer-be",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "watch": "node --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lisadelladucata/boolbeer-be.git"
+  },
+  "author": "gruppo 5",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lisadelladucata/boolbeer-be/issues"
+  },
+  "homepage": "https://github.com/lisadelladucata/boolbeer-be#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
