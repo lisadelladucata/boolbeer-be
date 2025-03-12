@@ -2,10 +2,17 @@ const express = require("express");
 const notFound = require("./middleware/notFound");
 const handleErrors = require("./middleware/handleErrors");
 const logger = require("./middleware/logger");
-const app = express();
 const cors = require("cors");
+const app = express();
+require("dotenv").config();
+const FE_CLIENT = process.env.FE_CLIENT;
 
-app.use(cors({ origin: process.env.FE_CLIENT }));
+app.use(
+  cors({
+    origin: FE_CLIENT,
+  })
+);
+
 app.use(express.json());
 app.use(logger);
 
