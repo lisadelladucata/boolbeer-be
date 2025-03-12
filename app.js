@@ -5,16 +5,13 @@ const logger = require("./middleware/logger");
 const app = express();
 
 app.use(express.json());
-
-//middlware
-
 app.use(logger);
-app.use(notFound);
-app.use(handleErrors);
 
 const productRoutes = require("./routes/productRoutes");
+app.use("/products", productRoutes);
 
-app.use("/api/products", productRoutes);
+app.use(notFound);
+app.use(handleErrors);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
