@@ -36,3 +36,17 @@ exports.getNewArrival = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getMostPopular = async (req, res, next) => {
+  try {
+    const [results] = await db.query(
+      ` SELECT *
+FROM order_product
+ORDER BY quantity DESC;
+  `
+    );
+    res.json(results);
+  } catch (err) {
+    next(err);
+  }
+};
