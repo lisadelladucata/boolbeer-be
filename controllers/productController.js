@@ -21,3 +21,18 @@ exports.getProductsByCategory = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getNewArrival = async (req, res, next) => {
+  try {
+    const [results] = await db.query(
+      ` SELECT *
+    FROM products
+    ORDER BY id DESC
+    LIMIT 10;
+  `
+    );
+    res.json(results);
+  } catch (err) {
+    next(err);
+  }
+};

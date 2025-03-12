@@ -6,4 +6,6 @@ router.get("/", productController.getProducts);
 
 router.get("/category/:category_id", productController.getProductsByCategory);
 
+router.get("/new-arrivals", productController.getNewArrival);
+
 module.exports = router;
