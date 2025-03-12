@@ -3,7 +3,9 @@ const notFound = require("./middleware/notFound");
 const handleErrors = require("./middleware/handleErrors");
 const logger = require("./middleware/logger");
 const app = express();
+const cors = require("cors");
 
+app.use(cors({ origin: process.env.FE_CLIENT }));
 app.use(express.json());
 app.use(logger);
 
