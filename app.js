@@ -1,18 +1,20 @@
 const express = require("express");
+const notFound = require("./middleware/notFound");
+const handleErrors = require("./middleware/handleErrors");
+const logger = require("./middleware/logger");
 const app = express();
 
 app.use(express.json());
 
-const logger = require("./middleware/logger");
+//middlware
+
 app.use(logger);
+app.use(notFound);
+app.use(handleErrors);
 
 const productRoutes = require("./routes/productRoutes");
-app.use("/api/products", productRoutes);
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: "Errore interno al server" });
-});
+app.use("/api/products", productRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
