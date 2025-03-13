@@ -7,6 +7,8 @@ exports.getProducts = async (req, res, next) => {
       FROM products
       LEFT JOIN order_product ON products.id = order_product.product_id
       GROUP BY products.id
+
+      
 `);
     res.json(rows);
   } catch (err) {
