@@ -3,8 +3,9 @@ const notFound = require("./middleware/notFound");
 const handleErrors = require("./middleware/handleErrors");
 const logger = require("./middleware/logger");
 const cors = require("cors");
-const app = express();
 require("dotenv").config();
+
+const app = express();
 const FE_CLIENT = process.env.FE_CLIENT;
 
 app.use(
@@ -17,8 +18,8 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(logger);
 
-const productRoutes = require("./routes/productRoutes");
-app.use("/products", productRoutes);
+const combinedRoutes = require("./routes/combinedRoutes");
+app.use("/", combinedRoutes);
 
 app.use(notFound);
 app.use(handleErrors);
