@@ -76,32 +76,30 @@ router.get("/allData", async (req, res, next) => {
           product_abv: row.product_abv,
           total_quantity_sold: row.total_quantity_sold,
 
-          //Mappiamo il brand
-          brand: row.brand_id
-            ? {
-                brand_id: row.brand_id,
-                brand_name: row.brand_name,
-              }
-            : null,
+          brand: row.brand_id,
 
-          // Mappiamo la categoria
-          category: row.category_id
-            ? {
-                category_id: row.category_id,
-                category_name: row.category_name,
-              }
-            : null,
+          brand_id: row.brand_id,
+          brand_name: row.brand_name,
 
-          //Mappiamo l'utente
-          user: row.user_id
-            ? {
-                user_id: row.user_id,
-                user_name: row.user_name,
-                user_email: row.user_email,
-              }
-            : null,
+          category: row.category_id,
 
-          //Inizializziamo gli array per dettagli e ordini
+          category_id: row.category_id,
+          category_name: row.category_name,
+
+          user: row.user_id,
+
+          user_id: row.user_id,
+          user_name: row.user_name,
+          user_email: row.user_email,
+
+          color: row.product_color,
+          style: row.product_style,
+
+          order_id: row.order_id,
+          order_date: row.order_date,
+          order_total_price: row.order_total_price,
+          order_is_paid: row.order_is_paid,
+
           details: [],
           orders: [],
         };
