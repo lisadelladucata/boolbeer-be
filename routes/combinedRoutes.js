@@ -21,6 +21,9 @@ router.get("/allData", async (req, res, next) => {
         -- Brand Info
         b.id AS brand_id,
         b.name AS brand_name,
+        b.logo AS brand_logo,
+        b.place AS brand_place,
+        b.web_site AS brand_web_site,
 
         -- Category Info
         c.id AS category_id,
@@ -76,12 +79,11 @@ router.get("/allData", async (req, res, next) => {
           product_abv: row.product_abv,
           total_quantity_sold: row.total_quantity_sold,
 
-          brand: row.brand_id,
-
           brand_id: row.brand_id,
           brand_name: row.brand_name,
-
-          category: row.category_id,
+          brand_logo: row.brand_logo,
+          brand_place: row.brand_place,
+          brand_web_site: row.brand_web_site,
 
           category_id: row.category_id,
           category_name: row.category_name,
@@ -156,7 +158,7 @@ router.get("/allData", async (req, res, next) => {
   }
 });
 
-// ✅ ROTTA PER OTTENERE I DETTAGLI DI UN SINGOLO PRODOTTO
+// ROTTA PER OTTENERE I DETTAGLI DI UN SINGOLO PRODOTTO
 router.get("/product/:id", async (req, res, next) => {
   try {
     const productId = req.params.id;
@@ -174,8 +176,14 @@ router.get("/product/:id", async (req, res, next) => {
 
         COALESCE(SUM(op.quantity), 0) AS total_quantity_sold,
 
-        b.id AS brand_id,
+       b.id AS brand_id,
         b.name AS brand_name,
+        b.logo AS brand_logo,
+        b.place AS brand_place,
+        b.web_site AS brand_web_site,
+
+       
+        
 
         c.id AS category_id,
         c.name AS category_name,
@@ -225,6 +233,9 @@ router.get("/product/:id", async (req, res, next) => {
 
       brand_id: data[0].brand_id,
       brand_name: data[0].brand_name,
+      brand_logo: data[0].brand_logo,
+      brand_place: data[0].brand_place,
+      brand_web_site: data[0].brand_web_site,
 
       category: data[0].category_id,
 
