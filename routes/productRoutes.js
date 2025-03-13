@@ -6,8 +6,4 @@ router.get("/", productController.getProducts);
 
 router.get("/category/:category_id", productController.getProductsByCategory);
 
-router.get("/new-arrivals", productController.getNewArrival);
-
-router.get("/most-popular", productController.getMostPopular);
-
 module.exports = router;
