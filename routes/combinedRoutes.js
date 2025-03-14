@@ -14,6 +14,7 @@ router.get("/allData", async (req, res, next) => {
         p.image AS product_image,
         p.volume AS product_volume,
         p.abv AS product_abv,
+        p.disponibility AS product_disponibility,
 
         -- Total Quantity Sold
         COALESCE(SUM(op.quantity), 0) AS total_quantity_sold,
@@ -77,6 +78,7 @@ router.get("/allData", async (req, res, next) => {
           product_image: row.product_image,
           product_volume: row.product_volume,
           product_abv: row.product_abv,
+          product_disponibility: row.product_disponibility,
           total_quantity_sold: row.total_quantity_sold,
 
           brand_id: row.brand_id,
@@ -173,6 +175,7 @@ router.get("/product/:id", async (req, res, next) => {
         p.image AS product_image,
         p.volume AS product_volume,
         p.abv AS product_abv,
+        p.disponibility AS product_disponibility,
 
         COALESCE(SUM(op.quantity), 0) AS total_quantity_sold,
 
@@ -228,6 +231,7 @@ router.get("/product/:id", async (req, res, next) => {
       product_image: data[0].product_image,
       product_volume: data[0].product_volume,
       product_abv: data[0].product_abv,
+      product_disponibility: data[0].product_disponibility,
       total_quantity_sold: data[0].total_quantity_sold,
       brand: data[0].brand_id,
 
