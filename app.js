@@ -30,6 +30,10 @@ const combinedRoutes = require("./routes/combinedRoutes");
 console.log("combinedRoutes typeof:", typeof combinedRoutes);
 app.use("/", combinedRoutes);
 
+// router per wishlist
+const wishlistRoutes = require("./routes/wishlistRoutes");
+app.use("/wishlist", wishlistRoutes);
+
 app.use(notFound);
 app.use(handleErrors);
 
