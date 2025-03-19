@@ -34,6 +34,10 @@ app.use("/", combinedRoutes);
 const wishlistRoutes = require("./routes/wishlistRoutes");
 app.use("/wishlist", wishlistRoutes);
 
+// router per Stripe Checkout
+const checkoutRoutes = require("./routes/checkoutRoutes");
+app.use("/checkout", checkoutRoutes);
+
 app.use(notFound);
 app.use(handleErrors);
 
