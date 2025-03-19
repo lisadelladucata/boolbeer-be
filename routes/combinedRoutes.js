@@ -1,14 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
-
-// generazione dello slug
-const generateSlug = (name) => {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-};
+const generateSlug = require("../utils/slug");
 
 router.get("/allData", async (req, res, next) => {
   try {
