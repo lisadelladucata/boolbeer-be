@@ -2,6 +2,14 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 
+// generazione dello slug
+const generateSlug = (name) => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+};
+
 router.get("/allData", async (req, res, next) => {
   try {
     const [data] = await db.query(`
@@ -106,6 +114,9 @@ router.get("/allData", async (req, res, next) => {
 
           details: [],
           orders: [],
+
+          // aggiunta dello slug in /alldata
+          product_slug: generateSlug(row.product_name),
         };
 
         acc.push(product);
@@ -161,9 +172,9 @@ router.get("/allData", async (req, res, next) => {
 });
 
 // ROTTA PER OTTENERE I DETTAGLI DI UN SINGOLO PRODOTTO
-router.get("/product/:id", async (req, res, next) => {
+router.get("/product/:slug", async (req, res, next) => {
   try {
-    const productId = req.params.id;
+    const productSlug = req.params.slug;
 
     const [data] = await db.query(
       `
@@ -179,14 +190,11 @@ router.get("/product/:id", async (req, res, next) => {
 
         COALESCE(SUM(op.quantity), 0) AS total_quantity_sold,
 
-       b.id AS brand_id,
+        b.id AS brand_id,
         b.name AS brand_name,
         b.logo AS brand_logo,
         b.place AS brand_place,
         b.web_site AS brand_web_site,
-
-       
-        
 
         c.id AS category_id,
         c.name AS category_name,
@@ -211,12 +219,12 @@ router.get("/product/:id", async (req, res, next) => {
       LEFT JOIN users u ON o.user_id = u.id
       LEFT JOIN details d ON p.id = d.product_id 
 
-      WHERE p.id = ?
+      WHERE p.name = ?
 
       GROUP BY 
         p.id, b.id, c.id, u.id, o.id, d.color, d.style
     `,
-      [productId]
+      [productSlug.replace(/-/g, " ")]
     );
 
     if (data.length === 0) {
