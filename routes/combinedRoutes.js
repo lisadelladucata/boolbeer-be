@@ -129,7 +129,7 @@ router.get("/allData", async (req, res, next) => {
         });
       }
 
-      //Aggiunge gli ordini solo se non sono duplicati
+      //Aggiunge gli ordini solo se non sono duplicatio
       if (
         row.order_id &&
         !product.orders.some((o) => o.order_id === row.order_id)
