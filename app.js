@@ -12,6 +12,12 @@ const FE_CLIENT = process.env.FE_CLIENT;
 app.use(express.json());
 
 // ✅ Configura CORS per abilitare richieste dal frontend
+
+// Middleware per parsare il JSON
+app.use(express.json());
+
+// Configura CORS
+
 app.use(
   cors({
     origin: FE_CLIENT,
@@ -20,6 +26,7 @@ app.use(
 
 app.use(express.static("public"));
 app.use(logger);
+
 
 // ✅ Monta il router per Stripe Checkout
 const checkoutRoutes = require("./routes/checkoutRoutes");
@@ -30,9 +37,17 @@ const discountRoutes = require("./routes/discountRoutes");
 app.use("/discount", discountRoutes);
 
 // ✅ Monta il router per le altre rotte
+
+// Monta il router per discount
+const discountRoutes = require("./routes/discountRoutes");
+app.use("/discount", discountRoutes);
+
+// Monta il router per le altre rotte
+
 const combinedRoutes = require("./routes/combinedRoutes");
 console.log("combinedRoutes typeof:", typeof combinedRoutes);
 app.use("/", combinedRoutes);
+
 
 // ✅ Monta il router per la wishlist
 const wishlistRoutes = require("./routes/wishlistRoutes");
@@ -42,6 +57,16 @@ app.use("/wishlist", wishlistRoutes);
 const cartRoutes = require("./routes/cartRoutes");
 app.use("/cart", cartRoutes);
 // ✅ Middleware per errori 404 e gestione errori
+
+// router per wishlist
+const wishlistRoutes = require("./routes/wishlistRoutes");
+app.use("/wishlist", wishlistRoutes);
+
+// router per Stripe Checkout
+const checkoutRoutes = require("./routes/checkoutRoutes");
+app.use("/checkout", checkoutRoutes);
+
+
 app.use(notFound);
 app.use(handleErrors);
 

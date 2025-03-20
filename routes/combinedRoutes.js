@@ -179,6 +179,7 @@ router.get("/product/:slug", async (req, res, next) => {
         p.image AS product_image,
         p.volume AS product_volume,
         p.abv AS product_abv,
+        p.disponibility AS product_disponibility,
 
         COALESCE(SUM(op.quantity), 0) AS total_quantity_sold,
 
