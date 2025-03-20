@@ -6,9 +6,15 @@ exports.createCheckoutSession = async (req, res, next) => {
   try {
     // Ci aspettiamo che il front-end invii un array "items"
     // ad esempio: [{ name: "Prodotto A", price: 50.00, quantity: 1 }]
-    const { items } = req.body;
+    const { items, discountCode } = req.body;
     if (!items || !Array.isArray(items)) {
       return res.status(400).json({ error: "Dati dell'ordine non validi" });
+    }
+
+    // Verifica il codice sconto
+    let discount = 0;
+    if (discountCode === "ALCOOL4EVER") {
+      discount = 0.1; // 10% di sconto
     }
 
     // Mappa gli items in line_items per Stripe (unit_amount in centesimi)
@@ -18,7 +24,7 @@ exports.createCheckoutSession = async (req, res, next) => {
         product_data: {
           name: item.name,
         },
-        unit_amount: Math.round(item.price * 100),
+        unit_amount: Math.round(item.price * 100 * (1 - discount)),
       },
       quantity: item.quantity,
     }));
